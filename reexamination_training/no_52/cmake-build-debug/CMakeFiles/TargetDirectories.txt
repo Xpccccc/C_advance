@@ -1,0 +1,3 @@
+/Users/xupeng/Documents/C_advance/reexamination_training/no_52/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/xupeng/Documents/C_advance/reexamination_training/no_52/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/xupeng/Documents/C_advance/reexamination_training/no_52/cmake-build-debug/CMakeFiles/no_52.dir
