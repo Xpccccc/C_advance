@@ -21,6 +21,9 @@ int main() {
     int k = 0;
     scanf("%d", &k);
     int ret = find_num(arr, 3, 3, k);
-    printf("%d\n", ret);
+    if(1 == ret)
+        printf("找到了\n");
+    else
+        printf("没找到\n");
     return 0;
 }
