@@ -5,15 +5,73 @@
 #include "contact.h"
 
 //初始化通讯录
+
+//静态版本
+//void InitContact(Contact *pc) {
+//    assert(pc);
+//    memset(pc->data, 0, sizeof(pc->data));
+//    pc->sz = 0;
+//}
+
+//动态版本
 void InitContact(Contact *pc) {
     assert(pc);
-    memset(pc->data, 0, sizeof(pc->data));
+    pc->data = (PeoInfo *) malloc(DEFAULT_SIZE * sizeof(PeoInfo));
+    if (NULL == pc->data) {
+        perror("InitContact");
+        return;
+    }
     pc->sz = 0;
+    pc->capacity = DEFAULT_SIZE;
 }
 
+
+//静态版本
 //增加通讯录
+//void AddContact(Contact *pc) {
+//    assert(pc);
+//    if (pc->sz == MAX) {
+//        printf("该通讯录已满\n");
+//        return;
+//    }
+//    printf("请输入名字：>");
+//    scanf("%s", pc->data[pc->sz].name);
+//    printf("请输入年龄：>");
+//    scanf("%d", &(pc->data[pc->sz].age));
+//    printf("请输入性别：>");
+//    scanf("%s", pc->data[pc->sz].sex);
+//    printf("请输入电话：>");
+//    scanf("%s", pc->data[pc->sz].tele);
+//    printf("请输入地址：>");
+//    scanf("%s", pc->data[pc->sz].addr);
+//
+//    pc->sz++;
+//    printf("增加联系人成功\n");
+//}
+
+int CheckCapacity(Contact *pc) {
+    if (pc->sz == pc->capacity) {
+        PeoInfo *ptr = (PeoInfo *) realloc(pc->data, (pc->capacity + INC_SIZE) * sizeof(PeoInfo));
+        if (ptr == NULL) {
+            perror("CheckCapacity");
+            return 0;//增容失败返回0
+        } else {
+            pc->data = ptr;
+            pc->capacity += INC_SIZE;
+            printf("增容成功\n");
+            return 1;//增容返回1
+        }
+    }
+    return 1;//不需要增容返回1
+}
+
+
+//动态版本
 void AddContact(Contact *pc) {
     assert(pc);
+    if (0 == CheckCapacity(pc)) {
+        return;
+    }
     if (pc->sz == MAX) {
         printf("该通讯录已满\n");
         return;
@@ -147,4 +205,41 @@ void ModifyContact(Contact *pc) {
         scanf("%s", pc->data[pos].addr);
         printf("修改成功\n");
     }
+}
+
+void DestroyContact(Contact *pc) {
+    assert(pc);
+//    if (0 == pc->sz) {
+//        printf("通讯录已为空,无需清空\n");
+//        return;
+//    }
+//    InitContact(pc);//用初始化来清空
+//    printf("已清空通讯录\n");
+
+    free(pc->data);
+    pc->data = NULL;
+    pc->sz = 0;
+    pc->capacity = 0;
+    printf("已清空通讯录\n");
+}
+
+//排序通讯录
+void SortContact(Contact *pc) {
+    assert(pc);
+    if (0 == pc->sz) {
+        printf("通讯录为空，无需排序\n");
+        return;
+    }
+
+    //按名字排序,冒泡排序
+    for (int i = 0; i < pc->sz - 1; ++i) {
+        for (int j = 0; j < pc->sz - 1 - i; ++j) {
+            if (strcmp(pc->data[j].name, pc->data[j + 1].name) > 0) {
+                PeoInfo temp = pc->data[j];
+                pc->data[j] = pc->data[j + 1];
+                pc->data[j + 1] = temp;
+            }
+        }
+    }
+    printf("排序完成\n");
 }

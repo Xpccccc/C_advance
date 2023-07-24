@@ -1,0 +1,10 @@
+# ninja log v5
+0	28	1690161474525169051	build.ninja	cb2baf7beb0d5335
+0	24	1690161474553884778	CMakeFiles/contact_dynamic.dir/main.c.o	484255680577b609
+0	27	1690161474556959572	CMakeFiles/contact_dynamic.dir/contact.c.o	55dea426c0937718
+27	56	1690161474586232591	contact_dynamic	2ee7b896a1177ee0
+0	39	1690162992249533856	CMakeFiles/contact_dynamic.dir/main.c.o	484255680577b609
+0	42	1690162992253260621	CMakeFiles/contact_dynamic.dir/contact.c.o	55dea426c0937718
+42	74	1690162992285743670	contact_dynamic	2ee7b896a1177ee0
+1	30	1690163101439335367	CMakeFiles/contact_dynamic.dir/contact.c.o	55dea426c0937718
+31	61	1690163101469731191	contact_dynamic	2ee7b896a1177ee0
