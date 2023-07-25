@@ -1,0 +1,13 @@
+# ninja log v5
+0	20	1690205117902073990	CMakeFiles/contact_file.dir/contact.c.o	1b4bf6975ec4b42
+0	37	1690205117918465125	CMakeFiles/contact_file.dir/main.c.o	26b5eae16e4a84e8
+0	27	1690205149392153381	CMakeFiles/contact_file.dir/main.c.o	26b5eae16e4a84e8
+0	27	1690205170755715236	CMakeFiles/contact_file.dir/main.c.o	26b5eae16e4a84e8
+0	28	1690205347554699384	CMakeFiles/contact_file.dir/main.c.o	26b5eae16e4a84e8
+0	34	1690205347561458381	CMakeFiles/contact_file.dir/contact.c.o	1b4bf6975ec4b42
+35	69	1690205347596256830	contact_file	21b9b1c81c5119c0
+0	152	1690256882287039875	CMakeFiles/contact_file.dir/main.c.o	26b5eae16e4a84e8
+0	153	1690256882289377207	CMakeFiles/contact_file.dir/contact.c.o	1b4bf6975ec4b42
+153	194	1690256882330487858	contact_file	21b9b1c81c5119c0
+1	163	1690296189642087131	CMakeFiles/contact_file.dir/contact.c.o	1b4bf6975ec4b42
+163	204	1690296189684590790	contact_file	21b9b1c81c5119c0
