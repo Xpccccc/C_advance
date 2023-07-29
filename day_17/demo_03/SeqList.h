@@ -42,6 +42,13 @@ void SLPopBack(SL* sl);
 //表头插入
 void SLPushFront(SL* sl,SLDataType x);
 //从顺序表表头删除
-void SLPopFront(SL* sl,SLDataType x);
+void SLPopFront(SL* sl);
 //打印
-void SLPrint(SL* sl);
+void SLPrint(const SL* sl);
+
+// 顺序表查找
+int SeqListFind(const SL* sl, SLDataType x);
+// 顺序表在pos位置插入x
+void SeqListInsert(SL* sl, int pos, SLDataType x);
+// 顺序表删除pos位置的值
+void SeqListErase(SL* sl, int pos);

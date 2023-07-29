@@ -17,7 +17,7 @@ void SLInit(SL *sl) {
 }
 
 //打印
-void SLPrint(SL *sl) {
+void SLPrint(const SL *sl) {
     assert(sl);
     for (int i = 0; i < sl->size; ++i) {
         printf("%d ", sl->a[i]);
@@ -75,17 +75,59 @@ void SLPopBack(SL *sl) {
 void SLPushFront(SL *sl, SLDataType x) {
     assert(sl);
     //检查容量
-    if (0 == CheckCapacity(sl)){
-        for (int i = sl->size-1; i >=0; --i) {
+    if (0 == CheckCapacity(sl)) {
+        for (int i = sl->size - 1; i >= 0; --i) {
             //挪动数据
-            sl->a[i+1] = sl->a[i];
+            sl->a[i + 1] = sl->a[i];
         }
         sl->a[0] = x;
         sl->size++;
     }
 }
 
+//从顺序表表头删除
+void SLPopFront(SL *sl) {
+    assert(sl);
+    assert(sl->size > 0);
+    for (int i = 0; i < sl->size - 1; ++i) {
+        sl->a[i] = sl->a[i + 1];
+    }
+    sl->size--;
+}
 
+// 顺序表查找
+int SeqListFind(const SL *sl, SLDataType x) {
+    assert(sl);
+    for (int i = 0; i < sl->size; ++i) {
+        if (x == sl->a[i]) {
+            return i;
+        }
+    }
+    return -1;//没找到
+}
+
+// 顺序表在pos位置插入x
+void SeqListInsert(SL *sl, int pos, SLDataType x) {
+    assert(sl);
+    //检查容量
+    if (0 == CheckCapacity(sl)) {
+        for (int i = sl->size - 1; i >= pos; --i) {
+            //从pos位置开始往后移
+            sl->a[i + 1] = sl->a[i];
+        }
+        sl->a[pos] = x;
+        sl->size++;
+    }
+}
+
+// 顺序表删除pos位置的值
+void SeqListErase(SL *sl, int pos) {
+    assert(sl);
+    for (int i = pos; i < sl->size - 1; ++i) {
+        sl->a[i] = sl->a[i + 1];
+    }
+    sl->size--;
+}
 
 
 
