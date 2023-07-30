@@ -123,6 +123,7 @@ void SeqListInsert(SL *sl, int pos, SLDataType x) {
 // 顺序表删除pos位置的值
 void SeqListErase(SL *sl, int pos) {
     assert(sl);
+    assert(pos>0&&pos<sl->size);/////////////////////
     for (int i = pos; i < sl->size - 1; ++i) {
         sl->a[i] = sl->a[i + 1];
     }
