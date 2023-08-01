@@ -82,3 +82,64 @@ void SLTPopFront(SLTNode **pphead) {
     free(*pphead);
     *pphead = newhead;
 }
+
+// 单链表查找
+SLTNode *SListFind(SLTNode *plist, SLTDataType x) {
+    assert(plist);
+    SLTNode *retnode = plist;
+    while (retnode->next) {
+        if (retnode->data == x) {
+            //找到了
+            return retnode;
+        }
+        retnode = retnode->next;
+    }
+    //没找着
+    return NULL;
+}
+
+// 单链表在pos位置之后插入x
+// 分析思考为什么不在pos位置之前插入？
+void SListInsertAfter(SLTNode **pos, SLTDataType x) {
+    SLTNode *newnode = BuySListNode(x);
+    if (*pos == NULL) {
+        *pos = newnode;
+    } else {
+        newnode->next = (*pos)->next;
+        (*pos)->next = newnode;
+    }
+
+}
+
+// 单链表删除pos位置之后的值
+// 分析思考为什么不删除pos位置？
+void SListEraseAfter(SLTNode *pos) {
+    //保证一个以上的结点
+    assert(pos->next);
+//    //一个结点
+//    if ((*pos)->next == NULL) {
+//        free(*pos);
+//        *pos = NULL;
+//    } else {
+//        //一个以上结点
+//        SLTNode *q = (*pos)->next;
+//        (*pos)->next = (*pos)->next->next;
+//        free(q);
+//        q = NULL;
+//    }
+    //一个以上结点
+    SLTNode *q = pos->next;//防止找不到pos后面的结点
+    pos->next = pos->next->next;
+    free(q);
+    q = NULL;
+}
+
+// 单链表的销毁
+void SListDestroy(SLTNode **plist) {
+    assert(*plist);
+    while (*plist) {//头结点不为空
+        //头删
+        SLTPopFront(plist);
+        //删到最后头结点为空
+    }
+}
