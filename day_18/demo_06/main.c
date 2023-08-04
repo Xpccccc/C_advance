@@ -59,7 +59,7 @@ bool isPalindrome(struct ListNode *head) {
     return true;
 }
 
-//剑指 Offer II 027. 回文链表
+//027. 回文链表(剑指 Offer II )
 int main() {
     struct ListNode *n1 = (struct ListNode *) malloc(sizeof(struct ListNode));
     struct ListNode *n2 = (struct ListNode *) malloc(sizeof(struct ListNode));
