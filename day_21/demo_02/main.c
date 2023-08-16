@@ -1,76 +1,68 @@
-#include <stdio.h>
-#include <stdlib.h>
+/**
+ * Definition for a Node.
+ * struct Node {
+ *     int val;
+ *     struct Node *next;
+ *     struct Node *random;
+ * };
+ */
+
+//138. 复制带随机指针的链表
 
 
-struct Node {
-    int val;
-    struct Node *next;
-    struct Node *random;
-};
+// 1、创建一个新结点链接到老结点后面
 
+// 2、复制random指向：copy->random = cur->random->next
 
-struct Node *BuyListNode(int x) {
-    struct Node *node = (struct Node *) malloc(sizeof(struct Node));
-    node->val = x;
-    node->next = NULL;
-    node->random = NULL;
-    return node;
-}
-
-struct Node *Find_pos(struct Node *phead, int x) {
-    while (phead) {
-        if (phead->val == x) {
-            return phead;
-        } else {
-            phead = phead->next;
-        }
-    }
-    //没找到
-    return NULL;
-}
-
+// 3、链接新结点链表，恢复老结点链表
 struct Node *copyRandomList(struct Node *head) {
-    //random就相当于prev
-    //创建一个带头结点
-    struct Node *plist = (struct Node *) malloc(sizeof(struct Node));
-    plist->next = NULL;
-    plist->random = NULL;
     struct Node *cur = head;
-    struct Node *tail = plist;//便于尾插
-    //先复制链表
+    // 1、创建一个新结点链接到老结点后面
     while (cur) {
-        struct Node *newnode = BuyListNode(cur->val);
-        cur = cur->next;
+        struct Node *next = cur->next;
+        struct Node *copy = (struct Node *) malloc(sizeof(struct Node));
+        copy->val = cur->val;
+        //插入
+        cur->next = copy;
+        copy->next = next;
+        //后移
+        cur = next;
+    }
+
+    // 2、复制random指向：copy->random = cur->random->next
+    cur = head;
+    while (cur) {
+        struct Node *copy = cur->next;
+        //插入
+        if (cur->random == NULL) {
+            copy->random = NULL;
+        } else {
+            copy->random = cur->random->next;
+        }
+        //后移
+        cur = copy->next;
+    }
+
+    // 3、链接新结点链表，恢复老结点链表
+    cur = head;
+    struct Node *copy_head = NULL;
+    struct Node *copy_tail = NULL;
+
+    while (cur) {
+        struct Node *copy = cur->next;
+        struct Node *next = copy->next;// cur的后驱
         //尾插
-        tail->next = newnode;
-        tail = tail->next;
+        if (copy_tail == NULL) {
+            copy_tail = copy_head = copy;
+        } else {
+            copy_tail->next = copy;
+            copy_tail = copy_tail->next;
+        }
+        //恢复新链表
+        cur->next = next;
+
+        //后移
+        cur = next;
     }
-    cur = head;//重置老链表当前位置；
-    struct Node *copy_cur = plist->next;//记录新链表当前位置
-    while (cur) {
-        //把新链表的random指向复制过来
-        //通过老链表random指向的结点的值去新链表找出来该值对应的地址
-        copy_cur->random = Find_pos(head, cur->random->val);
-        cur = cur->next;
-        copy_cur = copy_cur->next;
-    }
-    tail = plist->next;
-    free(plist);
-    return tail;
+    return copy_head;
 }
-
-int main() {
-//    struct Node *n1 = (struct Node *) malloc(sizeof(struct Node));
-//    struct Node *n2 = (struct Node *) malloc(sizeof(struct Node));
-//    n1->val = 1;
-//    n2->val = 2;
-//    n1->next = n2;
-//    n1->random = Find_pos(n1, 2);
-//    n2->next = NULL;
-//    n2->random = Find_pos(n1, 2);
-//    struct Node *plist = copyRandomList(n1);//复制后的链表
-
-
-
-}
-
