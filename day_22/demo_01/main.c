@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include "Queue.h"
 
 void TestStack1(){
     Stack st;
@@ -15,8 +16,23 @@ void TestStack1(){
     STDestroy(&st);
 }
 
-//栈
+void TestQue1(){
+    Que q;
+    QueInit(&q);
+    QuePush(&q,1);
+    QuePush(&q,2);
+    QuePush(&q,3);
+    QuePush(&q,4);
+    while(!QueEmpty(&q)){
+        printf("%d", QueFront(&q));
+        QuePop(&q);
+    }
+    QueDestroy(&q);
+}
+
+//栈和队列
 int main() {
-    TestStack1();
+//    TestStack1();
+    TestQue1();
     return 0;
 }
