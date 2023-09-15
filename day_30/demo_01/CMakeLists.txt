@@ -3,4 +3,4 @@ project(demo_01 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(demo_01 main.c)
+add_executable(demo_01 main.c Queue.c)

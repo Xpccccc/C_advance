@@ -1,15 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//二叉树
-typedef struct BinaryTreeNode {
-    struct BinaryTreeNode *left;
-    struct BinaryTreeNode *right;
-    int val;
-} BinaryTreeNode;
 
-BinaryTreeNode *BuyBTNode(int x) {
-    BinaryTreeNode *newNode = (BinaryTreeNode *) malloc(sizeof(BinaryTreeNode));
+//二叉树
+typedef struct BTNode {
+    struct BTNode *left;
+    struct BTNode *right;
+    int val;
+} BTNode;
+
+#include "Queue.h"
+
+BTNode *BuyBTNode(int x) {
+    BTNode *newNode = (BTNode *) malloc(sizeof(BTNode));
     if (newNode == NULL) {
         perror("malloc error");
         exit(-1);
@@ -21,7 +24,7 @@ BinaryTreeNode *BuyBTNode(int x) {
 }
 
 //前序遍历
-void PrevOrder(BinaryTreeNode *root) {
+void PrevOrder(BTNode *root) {
     if (root == NULL) {
         printf("%s ", "NULL");
         return;
@@ -32,7 +35,7 @@ void PrevOrder(BinaryTreeNode *root) {
 }
 
 //中序遍历
-void InOrder(BinaryTreeNode *root) {
+void InOrder(BTNode *root) {
     if (root == NULL) {
         printf("%s ", "NULL");
         return;
@@ -43,7 +46,7 @@ void InOrder(BinaryTreeNode *root) {
 }
 
 //后序遍历
-void PostOrder(BinaryTreeNode *root) {
+void PostOrder(BTNode *root) {
     if (root == NULL) {
         printf("%s ", "NULL");
         return;
@@ -53,15 +56,32 @@ void PostOrder(BinaryTreeNode *root) {
     printf("%d ", root->val);
 }
 
+//层序遍历
+void LevelOrder(BTNode *root) {
+    Que q;
+    QueInit(&q);
+    QuePush(&q, root);
+    while (!QueEmpty(&q)) {
+        BTNode *front = QueFront(&q);
+        printf("%d ", front->val);
+        if (front->left)
+            QuePush(&q, front->left);
+        if (front->right)
+            QuePush(&q, front->right);
+        QuePop(&q);
+    }
+    QueDestroy(&q);
+}
+
 //二叉树结点个数
-int BinarySize(BinaryTreeNode *root) {
+int BinarySize(BTNode *root) {
     if (root == NULL)
         return 0;
     return BinarySize(root->left) + BinarySize(root->right) + 1;
 }
 
 //二叉树的叶子结点个数
-int BinaryLeafSize(BinaryTreeNode *root) {
+int BinaryLeafSize(BTNode *root) {
     if (root == NULL)
         return 0;
     if (root->left == NULL && root->right == NULL)
@@ -70,7 +90,7 @@ int BinaryLeafSize(BinaryTreeNode *root) {
 }
 
 //二叉树每层结点的个数
-int BinaryLayerSize(BinaryTreeNode *root, int k) {
+int BinaryLayerSize(BTNode *root, int k) {
     if (root == NULL) //当前结点指向为空则返回0 也就是当前结点为子树的时候指向空
         return 0;
     if (k == 1) //到了要求的第k层了
@@ -84,13 +104,30 @@ int BinaryLayerSize(BinaryTreeNode *root, int k) {
     return BinaryLayerSize(root->left, k - 1) + BinaryLayerSize(root->right, k - 1);
 }
 
+//二叉树查找值为x的结点
+BTNode *TreeFind(BTNode *root, int x) {
+    if (root == NULL)
+        return NULL;
+
+    if (root->val == x)
+        return root;
+
+    BTNode *ret = TreeFind(root->left, x);
+    if (ret != NULL)
+        return ret;
+    ret = TreeFind(root->right, x);
+    if (ret != NULL)
+        return ret;
+    return NULL;
+}
+
 int main() {
-    BinaryTreeNode *Node1 = BuyBTNode(1);
-    BinaryTreeNode *Node2 = BuyBTNode(2);
-    BinaryTreeNode *Node3 = BuyBTNode(3);
-    BinaryTreeNode *Node4 = BuyBTNode(4);
-    BinaryTreeNode *Node5 = BuyBTNode(5);
-    BinaryTreeNode *Node6 = BuyBTNode(6);
+    BTNode *Node1 = BuyBTNode(1);
+    BTNode *Node2 = BuyBTNode(2);
+    BTNode *Node3 = BuyBTNode(3);
+    BTNode *Node4 = BuyBTNode(4);
+    BTNode *Node5 = BuyBTNode(5);
+    BTNode *Node6 = BuyBTNode(6);
     Node1->left = Node2;
     Node1->right = Node3;
     Node2->left = Node4;
@@ -108,5 +145,6 @@ int main() {
     printf("%d\n", BinarySize(Node1));
     printf("%d\n", BinaryLeafSize(Node1));
     printf("%d\n", BinaryLayerSize(Node1, 2));
+    LevelOrder(Node1);
     return 0;
 }
