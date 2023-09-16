@@ -22,6 +22,7 @@ void preOrder(struct TreeNode *root, int *ret, int *i) {
 int *preorderTraversal(struct TreeNode *root, int *returnSize) {
     int *ret = (int *) malloc(sizeof(int) * 100);
     int j = 0;
+    
     preOrder(root, ret, &j);
     *returnSize = j;
     return ret;
