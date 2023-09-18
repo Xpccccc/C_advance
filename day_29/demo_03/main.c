@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <tgmath.h>
+#include <stdlib.h>
 
 //输入：输入一个字符串，字符串表示带有分数加、减运算的表达式，如“1/3+1/2-2-1/3”，参与运算的数可能是分数（1/3表示的是分数），可能是整数
 //输出：计算该表达式的值，要求最后结果以分数的形式输出。
@@ -20,6 +21,8 @@ int lowest_Common_Multiple(int a, int b) {
 
 //给定两个数，求这两个数的最大公约数
 int greatest_Common_Divisor(int a, int b) {
+    if (a < 0)
+        a = -a;
     int c = 0;
     //辗转相除法
     while (a % b) {
@@ -103,6 +106,21 @@ int main() {
     int greatest_common_divisor = greatest_Common_Divisor(numerator, denominator);
     numerator /= greatest_common_divisor;
     denominator /= greatest_common_divisor;
-    printf("%d/%d", numerator, denominator);
+    if (abs(numerator) < denominator)
+        printf("%d/%d\n", numerator, denominator);
+    else {
+        int a = 0;
+        if (numerator < 0) {
+            a = abs(numerator)/denominator;
+            numerator += a * denominator;
+            a = -a;
+            numerator = -numerator;
+        } else {
+            a = numerator/denominator;
+            numerator -= a * denominator;
+        }
+        printf("%d %d/%d\n", a, numerator, denominator);
+    }
     return 0;
+
 }
