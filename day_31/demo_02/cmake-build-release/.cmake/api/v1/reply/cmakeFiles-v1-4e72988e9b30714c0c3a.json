@@ -16,7 +16,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/3.25.2/CMakeSystem.cmake"
+			"path" : "cmake-build-release/CMakeFiles/3.25.2/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -480,7 +480,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/3.25.2/CMakeCCompiler.cmake"
+			"path" : "cmake-build-release/CMakeFiles/3.25.2/CMakeCCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -619,13 +619,13 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "cmake-build-debug/CMakeFiles/3.25.2/CMakeCCompiler.cmake"
+			"path" : "cmake-build-release/CMakeFiles/3.25.2/CMakeCCompiler.cmake"
 		}
 	],
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/Users/xupeng/Documents/C_advance/day_31/demo_02/cmake-build-debug",
+		"build" : "/Users/xupeng/Documents/C_advance/day_31/demo_02/cmake-build-release",
 		"source" : "/Users/xupeng/Documents/C_advance/day_31/demo_02"
 	},
 	"version" : 

@@ -3,4 +3,4 @@ project(demo_02 C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(demo_02 main.c)
+add_executable(demo_02 main.c Sort.c Sort.h)

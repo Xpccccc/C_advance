@@ -1,29 +1,62 @@
-#include <stdio.h>
+#include "Sort.h"
+const int n = 100000000;
 
-void insertSort(int *arr, int n) {
-
-    for (int i = 0; i < n - 1; ++i) {
-        //一趟
-        int end = i;
-        int tmp = arr[end + 1];
-        while (end >= 0) {
-            if (tmp < arr[end]) {
-                arr[end + 1] = arr[end];
-            } else {
-                break;
-            }
-            --end;
-        }
-        arr[end + 1] = tmp;
+int *CreatData() {
+    int *a = (int *) malloc(sizeof(int) * n);
+    srand((unsigned int) time(0));
+    for (int i = 0; i < n; ++i) {
+        a[i] = rand() + i;
     }
+    return a;
 }
 
-//直接插入排序
+
+//排序算法
 int main() {
-    int arr[] = {1, 4, 6, 7, 9, 0, 4, 2, 5, 6, 777, 7, 8, 5, 4, 3, 7, 4, 78, 1};
-    insertSort(arr, sizeof(arr) / sizeof(arr[0]));
-    for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); ++i) {
-        printf("%d ", arr[i]);
+
+//    int arr[] = {1, 4, 6, 7, 9, 0, 4, 2, 5, 6, 777, 7, 8, 5, 4, 3, 7, 4, 78, 1};
+////    InsertSort(arr, sizeof(arr) / sizeof(arr[0]));
+////    ShellSort(arr, sizeof(arr) / sizeof(arr[0]));
+////    BubbleSort(arr, sizeof(arr) / sizeof(arr[0]));
+////    SelectSort(arr, sizeof(arr) / sizeof(arr[0]));
+////    HeapSort(arr, sizeof(arr) / sizeof(arr[0]));
+
+    int *a1 = CreatData();
+    int *a2 = (int *) malloc(sizeof(int) * n);
+    int *a3 = (int *) malloc(sizeof(int) * n);
+    int *a4 = (int *) malloc(sizeof(int) * n);
+    int *a5 = (int *) malloc(sizeof(int) * n);
+    for (int i = 0; i < n; ++i) {
+        a1[i] = rand();
+        a2[i] = a1[i];
+        a3[i] = a1[i];
+        a4[i] = a1[i];
+        a5[i] = a1[i];
     }
+    int start1 = clock();
+    InsertSort(a1, n);
+    int end1 = clock();
+    printf("InsertSort:%.2lf秒\n", (double )(end1 - start1)/CLOCKS_PER_SEC);
+
+    int start2 = clock();
+    ShellSort(a2, n);
+    int end2 = clock();
+    printf("ShellSort:%.2lf秒\n", (double )(end2 - start2)/CLOCKS_PER_SEC);
+
+    int start3 = clock();
+    BubbleSort(a3, n);
+    int end3 = clock();
+    printf("BubbleSort:%.2lf秒\n", (double )(end3 - start3)/CLOCKS_PER_SEC);
+
+    int start4 = clock();
+    SelectSort(a4, n);
+    int end4 = clock();
+    printf("SelectSort:%.2lf秒\n", (double )(end4 - start4)/CLOCKS_PER_SEC);
+
+    int start5 = clock();
+    HeapSort(a5, n);
+    int end5 = clock();
+    printf("HeapSort:%.2lf秒\n", (double )(end5 - start5)/CLOCKS_PER_SEC);
+
     return 0;
 }
