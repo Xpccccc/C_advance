@@ -27,3 +27,6 @@ void SelectSort(int *arr, int n);
 
 //堆排序
 void HeapSort(int *arr, int n);
+
+//快速排序
+void QuickSort(int *arr, int begin,int end);
