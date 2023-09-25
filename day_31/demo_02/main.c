@@ -21,9 +21,9 @@ int main() {
 ////    BubbleSort(arr, sizeof(arr) / sizeof(arr[0]));
 ////    SelectSort(arr, sizeof(arr) / sizeof(arr[0]));
 ////    HeapSort(arr, sizeof(arr) / sizeof(arr[0]));
-    ShellSort(arr,sizeof(arr) / sizeof(arr[0]));
+    QuickSort(arr, 0, sizeof(arr) / sizeof(arr[0]) - 1);
     for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); ++i) {
-        printf("%d ",arr[i]);
+        printf("%d ", arr[i]);
     }
     printf("\n");
     int *a1 = CreatData();

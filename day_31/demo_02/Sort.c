@@ -27,20 +27,22 @@ void InsertSort(int *arr, int n) {
 void ShellSort(int *arr, int n) {
 
 //    int gap = n;
-//    for (int j = 0; j <= n - gap; ++j) {
-//        gap = gap / 3 + 1;
-//        for (int i = j; i < n - gap; i += gap) {
-//            int end = i;
-//            int tmp = arr[end + gap];
-//            while (end >= 0) {
-//                if (tmp < arr[end]) {
-//                    arr[end + gap] = arr[end];
-//                } else {
-//                    break;
+//    while (gap > 1) {
+//        gap = gap / 3 + 1; //这里控制每次gap递减
+//        for (int j = 0; j < gap; ++j) { //这里控制 i 走到 gap-1
+//            for (int i = j; i < n - gap; i += gap) {//一趟排序把所有这次gap的元素排序好
+//                int end = i;
+//                int tmp = arr[end + gap];
+//                while (end >= 0) {
+//                    if (tmp < arr[end]) {
+//                        arr[end + gap] = arr[end];
+//                    } else {
+//                        break;
+//                    }
+//                    end -= gap;
 //                }
-//                end -= gap;
+//                arr[end + gap] = tmp;
 //            }
-//            arr[end + gap] = tmp;
 //        }
 //    }
 
@@ -271,11 +273,27 @@ int PartSort3(int *a, int left, int right) {
 }
 
 //快速排序
+//void QuickSort(int *arr, int begin, int end) {
+//    if (begin >= end)//只剩下一个元素，或者begin > end直接返回
+//        return;
+//    //先找到排序一趟后的枢轴元素的最终位置
+//    int pos = PartSort3(arr, begin, end);
+//    QuickSort(arr, begin, pos - 1);//对左边排序
+//    QuickSort(arr, pos + 1, end);//对右边排序
+//}
+
+//快速排序递归优化
 void QuickSort(int *arr, int begin, int end) {
     if (begin >= end)//只剩下一个元素，或者begin > end直接返回
         return;
-    //先找到排序一趟后的枢轴元素的最终位置
-    int pos = PartSort3(arr, begin, end);
-    QuickSort(arr, begin, pos - 1);//对左边排序
-    QuickSort(arr, pos + 1, end);//对右边排序
+    if (end - begin <= 10) {
+        //区间短短直接用插入排序，因为短区间此时基本有序了
+        InsertSort(arr + begin, end - begin + 1);
+    } else {
+        //先找到排序一趟后的枢轴元素的最终位置
+        int pos = PartSort3(arr, begin, end);
+        QuickSort(arr, begin, pos - 1);//对左边排序
+        QuickSort(arr, pos + 1, end);//对右边排序
+    }
+
 }
