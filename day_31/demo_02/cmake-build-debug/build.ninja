@@ -61,6 +61,12 @@ build CMakeFiles/demo_02.dir/Sort.c.o: C_COMPILER__demo_02_Debug /Users/xupeng/D
   OBJECT_DIR = CMakeFiles/demo_02.dir
   OBJECT_FILE_DIR = CMakeFiles/demo_02.dir
 
+build CMakeFiles/demo_02.dir/Stack.c.o: C_COMPILER__demo_02_Debug /Users/xupeng/Documents/C_advance/day_31/demo_02/Stack.c || cmake_object_order_depends_target_demo_02
+  DEP_FILE = CMakeFiles/demo_02.dir/Stack.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -fcolor-diagnostics -std=gnu11
+  OBJECT_DIR = CMakeFiles/demo_02.dir
+  OBJECT_FILE_DIR = CMakeFiles/demo_02.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target demo_02
@@ -69,7 +75,7 @@ build CMakeFiles/demo_02.dir/Sort.c.o: C_COMPILER__demo_02_Debug /Users/xupeng/D
 #############################################
 # Link the executable demo_02
 
-build demo_02: C_EXECUTABLE_LINKER__demo_02_Debug CMakeFiles/demo_02.dir/main.c.o CMakeFiles/demo_02.dir/Sort.c.o
+build demo_02: C_EXECUTABLE_LINKER__demo_02_Debug CMakeFiles/demo_02.dir/main.c.o CMakeFiles/demo_02.dir/Sort.c.o CMakeFiles/demo_02.dir/Stack.c.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk
   OBJECT_DIR = CMakeFiles/demo_02.dir
   POST_BUILD = :

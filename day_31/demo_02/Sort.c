@@ -272,7 +272,7 @@ int PartSort3(int *a, int left, int right) {
     return pre;
 }
 
-//快速排序
+//快速排序 -- 递归方法
 //void QuickSort(int *arr, int begin, int end) {
 //    if (begin >= end)//只剩下一个元素，或者begin > end直接返回
 //        return;
@@ -282,7 +282,7 @@ int PartSort3(int *a, int left, int right) {
 //    QuickSort(arr, pos + 1, end);//对右边排序
 //}
 
-//快速排序递归优化
+//快速排序  -- 递归方法优化
 void QuickSort(int *arr, int begin, int end) {
     if (begin >= end)//只剩下一个元素，或者begin > end直接返回
         return;
@@ -297,3 +297,151 @@ void QuickSort(int *arr, int begin, int end) {
     }
 
 }
+
+//快速排序 -- 非递归方法
+void QuickSortNonR(int *arr, int begin, int end) {
+    Stack st;
+    STInit(&st);
+    STPush(&st, end);
+    STPush(&st, begin);//将此次排序的左右边界下标入栈
+    while (!STEmpty(&st)) {
+        int left = STTop(&st);
+        STPop(&st);
+        int right = STTop(&st);
+        STPop(&st);
+        int pos = PartSort2(arr, left, right);
+        if (left < pos - 1) {//有一个以上元素
+            STPush(&st, pos - 1);//左边排序
+            STPush(&st, left);
+        }
+        if (right > pos + 1) {
+            STPush(&st, right);//右边排序
+            STPush(&st, pos + 1);
+        }
+    }
+    STDestroy(&st);
+}
+
+void _MergeSort(int *arr, int *tmp, int left, int right) {
+    //剩一个元素或者left<right
+    if (left >= right)
+        return;
+    //二分法
+    int mid = (left + right) / 2;
+    _MergeSort(arr, tmp, left, mid);
+    _MergeSort(arr, tmp, mid + 1, right);
+
+    //归并到tmp数组，再拷贝回去
+    int index = left;
+    int begin1 = left, end1 = mid;
+    int begin2 = mid + 1, end2 = right;
+    while (begin1 <= end1 && begin2 <= end2) {
+        if (arr[begin1] <= arr[begin2])
+            tmp[index++] = arr[begin1++];
+        else
+            tmp[index++] = arr[begin2++];
+    }
+    //还有没排完的
+    while (end1 - begin1 >= 0) {
+        tmp[index++] = arr[begin1++];
+    }
+    while (end2 - begin2 >= 0) {
+        tmp[index++] = arr[begin2++];
+    }
+
+    //拷贝回去  -- 画图理解
+    memcpy(arr + left, tmp + left, sizeof(int) * (right - left + 1));
+}
+
+//归并排序 -- 递归方法
+void MergeSort(int *arr, int begin, int end) {
+    int n = end - begin + 1;
+    int *tmp = (int *) malloc(sizeof(int) * n);
+    if (tmp == NULL) {
+        printf("malloc error");
+        exit(-1);
+    }
+    _MergeSort(arr, tmp, 0, n - 1);
+    free(tmp);
+}
+
+
+//归并排序 -- 非递归方法
+void MergeSortNonR(int *arr, int begin, int end) {
+    int n = end - begin + 1;
+    int *tmp = (int *) malloc(sizeof(int) * n);
+    int gap = 1;
+    while (gap < n) {
+        for (int i = 0; i < n; i += 2 * gap) {
+            int begin1 = i;
+            int end1 = begin1 + gap - 1;
+            int begin2 = end1 + 1;
+            int end2 = begin2 + gap - 1;
+
+            //这里得判断越界问题
+            //第二组不存在，就不用归并了
+            if (begin2 >= n) {//if(end1 >= n || begin2 >= n)也可以
+                break;
+            }
+            if (end2 >= n) {
+                end2 = n - 1;
+            }
+
+            int index = i;
+            while (begin1 <= end1 && begin2 <= end2) {
+                if (arr[begin1] <= arr[begin2])
+                    tmp[index++] = arr[begin1++];
+                else
+                    tmp[index++] = arr[begin2++];
+            }
+            //还有没排完的
+            while (end1 - begin1 >= 0) {
+                tmp[index++] = arr[begin1++];
+            }
+            while (end2 - begin2 >= 0) {
+                tmp[index++] = arr[begin2++];
+            }
+            //拷贝回去  -- 画图理解
+//            memcpy(arr + i, tmp + i, sizeof(int) * (2 * gap));
+            memcpy(arr + i, tmp + i, sizeof(int) * (end2 - i + 1));
+        }
+        gap *= 2;
+    }
+}
+
+//计数排序
+void CountSort(int *arr, int n) {
+    //先找出数组的最大最小值
+    int max = arr[0];
+    int min = arr[0];
+    for (int i = 1; i < n; ++i) {
+        if (arr[i] > max) {
+            max = arr[i];
+        }
+        if (arr[i] < min) {
+            min = arr[i];
+        }
+    }
+    //节省空间，需要对元素重定位
+    int capacity = max - min + 1;//元素大小区间
+    //记录每个元素的出现次数
+    int *count = (int *) malloc(sizeof(int) * capacity);
+    if (count == NULL) {
+        perror("malloc error");
+        exit(-1);
+    }
+    memset(count, 0, sizeof(int) * capacity);
+    for (int i = 0; i < n; ++i) {
+        count[arr[i] - min]++;
+    }
+    int j = 0;
+    for (int i = 0; i < capacity; ++i) {
+        while (count[i]--) {
+            arr[j++] = i + min;
+        }
+    }
+    free(count);
+}
+
+
+
